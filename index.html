@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificação de Segurança - Roblox</title>
-    <!-- Script oficial do reCAPTCHA v2 -->
+    <title>Acesso - Roblox</title>
+    <!-- Script oficial do reCAPTCHA v2 padrão -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         body {
@@ -31,6 +31,29 @@
             width: 90%;
             max-width: 350px;
         }
+        .btn-opcao {
+            background-color: #2a2a2a;
+            color: white;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid #444;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+        }
+        .btn-opcao:hover {
+            border-color: #0070f3;
+            background-color: #333;
+        }
+        .btn-app {
+            border-color: #28a745;
+        }
+        .btn-app:hover {
+            border-color: #34d058;
+        }
         .roblox-link {
             background-color: #0070f3;
             color: white;
@@ -42,35 +65,58 @@
             border: none;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.2s, transform 0.2s;
             width: 100%;
         }
         .roblox-link:hover {
             background-color: #0051bb;
         }
+        .escondido {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
 
-    <div class="box">
-        <h2>Verificação de Segurança</h2>
-        <p style="font-size: 14px; color: #aaa;">Confirme que você não é um robô para continuar:</p>
+    <!-- TELA 1: Escolha entre App ou Site -->
+    <div class="box" id="tela-escolha">
+        <h2>Como deseja abrir?</h2>
+        <p style="font-size: 14px; color: #aaa;">Escolha onde quer acessar o conteúdo:</p>
+        
+        <button onclick="escolherApp()" class="btn-opcao btn-app">📱 Abrir no App do Roblox</button>
+        <button onclick="escolherSite()" class="btn-opcao">🌐 Abrir no Navegador (Site)</button>
+    </div>
 
-        <!-- Caixinha do reCAPTCHA v2 com a sua nova chave de site -->
+    <!-- TELA 2: A Verificação do reCAPTCHA -->
+    <div class="box escondido" id="tela-captcha">
+        <h2>Verificação de Segurança</h2>
+        <p style="font-size: 14px; color: #aaa;">Confirme que você não é um robô:</p>
+
+        <!-- Div padrão do reCAPTCHA v2 -->
         <div class="g-recaptcha" data-sitekey="6Ld-x3ItAAAAAL1D-84aGFLKyvxUyEXS5KpGhIKj"></div>
 
-        <button onclick="verificarCaptcha()" class="roblox-link">Continuar para o Link</button>
+        <button onclick="verificarCaptcha()" class="roblox-link" style="margin-top: 10px;">Continuar para o Link</button>
     </div>
 
     <script>
+        function escolherApp() {
+            window.location.href = "roblox://";
+            setTimeout(function() {
+                alert("Se o app não abrir, tente escolher a opção do Navegador (Site)!");
+            }, 2000);
+        }
+
+        function escolherSite() {
+            // Esconde a tela de escolha e mostra a tela do reCAPTCHA
+            document.getElementById("tela-escolha").classList.add("escondido");
+            document.getElementById("tela-captcha").classList.remove("escondido");
+        }
+
         function verificarCaptcha() {
-            // Pega a resposta da caixinha do reCAPTCHA
             var resposta = grecaptcha.getResponse();
 
             if (resposta.length === 0) {
                 alert("Por favor, marque a caixa do reCAPTCHA primeiro!");
             } else {
-                // Passou! Redireciona para o link final
                 window.location.href = "https://links.lootlabs.gg/s?aj7mVFjG";
             }
         }
