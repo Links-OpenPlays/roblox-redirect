@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificação de Segurança - Roblox</title>
+    <title>Abrir Roblox</title>
     <!-- Script oficial do reCAPTCHA v3 com a sua chave -->
     <script src="https://www.google.com/recaptcha/api.js?render=6LfZvHItAAAAAONdFuJkYHT6HvdYqN7nc5t6_Yia"></script>
     <style>
@@ -52,10 +52,6 @@
             font-size: 14px;
             color: #888;
         }
-        /* Oculta o selo flutuante do v3 exigido pelo Google */
-        .grecaptcha-badge {
-            visibility: hidden !important;
-        }
     </style>
 </head>
 <body>
@@ -69,7 +65,7 @@
 
     <script>
         function verificarGoogleV3() {
-            document.getElementById("status-texto").innerText = "Validando...";
+            document.getElementById("status-texto").innerText = "Carregando...";
 
             grecaptcha.ready(function() {
                 grecaptcha.execute('6LfZvHItAAAAAONdFuJkYHT6HvdYqN7nc5t6_Yia', {action: 'submit'}).then(function(token) {
