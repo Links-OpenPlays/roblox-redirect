@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abrir Roblox</title>
-    <!-- Script oficial do reCAPTCHA v3 com a sua chave -->
-    <script src="https://www.google.com/recaptcha/api.js?render=6LfZvHItAAAAAONdFuJkYHT6HvdYqN7nc5t6_Yia"></script>
+    <title>Verificação de Segurança - Roblox</title>
+    <!-- Script oficial do reCAPTCHA v2 -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         body {
             margin: 0;
@@ -28,7 +28,7 @@
             align-items: center;
             gap: 20px;
             text-align: center;
-            width: 85%;
+            width: 90%;
             max-width: 350px;
         }
         .roblox-link {
@@ -48,36 +48,31 @@
         .roblox-link:hover {
             background-color: #0051bb;
         }
-        .status {
-            font-size: 14px;
-            color: #888;
-        }
     </style>
 </head>
 <body>
 
     <div class="box">
         <h2>Verificação de Segurança</h2>
-        <p class="status" id="status-texto">Clique para prosseguir com segurança.</p>
-        
-        <button onclick="verificarGoogleV3()" class="roblox-link">Continuar</button>
+        <p style="font-size: 14px; color: #aaa;">Confirme que você não é um robô para continuar:</p>
+
+        <!-- Caixinha do reCAPTCHA v2 com a sua nova chave de site -->
+        <div class="g-recaptcha" data-sitekey="6Ld-x3ItAAAAAL1D-84aGFLKyvxUyEXS5KpGhIKj"></div>
+
+        <button onclick="verificarCaptcha()" class="roblox-link">Continuar para o Link</button>
     </div>
 
     <script>
-        function verificarGoogleV3() {
-            document.getElementById("status-texto").innerText = "Carregando...";
+        function verificarCaptcha() {
+            // Pega a resposta da caixinha do reCAPTCHA
+            var resposta = grecaptcha.getResponse();
 
-            grecaptcha.ready(function() {
-                grecaptcha.execute('6LfZvHItAAAAAONdFuJkYHT6HvdYqN7nc5t6_Yia', {action: 'submit'}).then(function(token) {
-                    if (token) {
-                        // Token gerado com sucesso pelo Google! Redireciona para o link
-                        window.location.href = "https://links.lootlabs.gg/s?aj7mVFjG";
-                    } else {
-                        alert("Erro na validação do reCAPTCHA.");
-                        document.getElementById("status-texto").innerText = "Tente novamente.";
-                    }
-                });
-            });
+            if (resposta.length === 0) {
+                alert("Por favor, marque a caixa do reCAPTCHA primeiro!");
+            } else {
+                // Passou! Redireciona para o link final
+                window.location.href = "https://links.lootlabs.gg/s?aj7mVFjG";
+            }
         }
     </script>
 
