@@ -3,28 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abrir Roblox</title>
+    <title>Verificação de Segurança - Roblox</title>
+    <!-- Script oficial do reCAPTCHA do Google -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         body {
             margin: 0;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             background-color: #121212;
             font-family: Arial, sans-serif;
+            color: white;
+        }
+        .box {
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
         .roblox-link {
             background-color: #0070f3;
             color: white;
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 12px 25px;
+            font-size: 16px;
             font-weight: bold;
             text-decoration: none;
             border-radius: 8px;
+            border: none;
+            cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: background-color 0.2s, transform 0.2s;
-            cursor: pointer;
         }
         .roblox-link:hover {
             background-color: #0051bb;
@@ -34,7 +49,28 @@
 </head>
 <body>
 
-    <a href="https://lootdest.org/s?aj7mVFjG" class="roblox-link">Acessar o Roblox</a>
+    <div class="box">
+        <h2>Confirme que você não é um robô</h2>
+        
+        <!-- Caixinha do reCAPTCHA com a sua Site Key -->
+        <div class="g-recaptcha" data-sitekey="6LfZvHItAAAAAONdFuJkYHT6HvdYqN7nc5t6_Yia"></div>
+
+        <button onclick="verificarCaptcha()" class="roblox-link">Continuar para o Link</button>
+    </div>
+
+    <script>
+        function verificarCaptcha() {
+            // Pega a resposta gerada pelo reCAPTCHA
+            var resposta = grecaptcha.getResponse();
+
+            if (resposta.length == 0) {
+                alert("Por favor, marque a caixa do reCAPTCHA antes de continuar!");
+            } else {
+                // Se passou pelo CAPTCHA, redireciona para o seu link da Loot Labs/Dest
+                window.location.href = "https://links.lootlabs.gg/s?aj7mVFjG";
+            }
+        }
+    </script>
 
 </body>
 </html>
