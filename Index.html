@@ -23,12 +23,53 @@
             text-decoration: none;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+        .roblox-link:hover {
+            background-color: #0051bb;
         }
     </style>
 </head>
 <body>
-    <!-- Lembre de substituir SEU_HASH_ENCRIPTADO_AQUI pelo hash real gerado na Loot Labs -->
-    <a href="https://loot-link.com/s?qo0f&data=SEU_HASH_ENCRIPTADO_AQUI" class="roblox-link">Acessar o Roblox</a>
+
+    <a href="#" id="roblox-btn" class="roblox-link">Acessar o Roblox</a>
+
+    <script>
+        document.getElementById('roblox-btn').addEventListener('click', async function(e) {
+            e.preventDefault();
+
+            // Suas informações da Loot Labs
+            const apiToken = '957a8d288f631e63ba4b01d08f0ace9653c4e72bf4b857b399f767ada08aa0b3';
+            const targetUrl = 'https://www.roblox.com'; // Destino final
+            const baseLootLink = 'https://loot-link.com/s?qo0f'; // Seu link base do painel
+
+            this.innerText = "Gerando link seguro...";
+
+            try {
+                // Chama a API de encriptação da Loot Labs para obter o hash &data= automaticamente
+                const encryptUrl = `https://creators.lootlabs.gg/api/public/url_encryptor?destination_url=${encodeURIComponent(targetUrl)}&api_token=${apiToken}`;
+                
+                const response = await fetch(encryptUrl);
+                const data = await response.json();
+
+                if (data && data.message) {
+                    const encryptedData = data.message; // O hash gerado pela API
+                    
+                    // Monta o link final com o link base + o hash obtido
+                    const finalRedirectUrl = `${baseLootLink}&data=${encryptedData}`;
+                    
+                    // Redireciona para o fluxo de anúncios da Loot Labs
+                    window.location.href = finalRedirectUrl;
+                } else {
+                    alert("Erro ao gerar o link. Tente novamente.");
+                    this.innerText = "Acessar o Roblox";
+                }
+            } catch (error) {
+                console.error("Erro:", error);
+                window.location.href = targetUrl; // Fallback para ir direto caso dê erro de rede
+            }
+        });
+    </script>
+
 </body>
 </html>
-
